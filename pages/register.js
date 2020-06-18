@@ -7,22 +7,23 @@ import factory from '../ethereum/factory';
 class RequestNew extends Component {
   state = {
    uid:'',
-	 name:'',
-	 course:'',
-	 loading : false,
+   name:'',
+   course:'',
+   loading : false,
    errorMessage: ''
  };
 
   onSubmit = async event => {
     event.preventDefault();
-    const {uid} = this.state;
+    const {uid, name , course} = this.state;
     this.setState({loading:true ,errorMessage: ''});
     try {
       const accounts = await web3.eth.getAccounts();
-			const summary = await factory.methods.getData(uid).call();
-			this.setState({name: summary[1]});
-			this.setState({course: summary[2]})
-
+      await factory.methods.createData(
+        uid,
+        name,
+        course
+      ).send({from: accounts[0]});
     } catch(err) {
       this.setState({errorMessage:err.message});
     }
@@ -32,7 +33,7 @@ class RequestNew extends Component {
   render(){
     return(
       <div>
-      <h3>Show Certificate</h3>
+      <h3>Create a Certificate</h3>
         <Form onSubmit = {this.onSubmit}>
           <Form.Field>
             <label>Certificate Id</label>
@@ -42,11 +43,23 @@ class RequestNew extends Component {
             />
           </Form.Field>
 
+          <Form.Field>
+            <label>Student Name</label>
+            <Input
+              value = {this.state.name}
+              onChange= {event => this.setState({name: event.target.value})}
+             />
+          </Form.Field>
+
+          <Form.Field>
+            <label>Course</label>
+            <Input
+              value = {this.state.course}
+              onChange= {event => this.setState({course: event.target.value})}
+            />
+          </Form.Field>
           <Message error header="Oops!" content={this.state.errorMessage} />
-					<Message error header="uid!" content={this.state.uid} />
-					<Message error header="name" content={this.state.name} />
-					<Message error header="course" content={this.state.course} />
-          <Button primary loading ={this.state.loading}> Show!</ Button>
+          <Button primary loading ={this.state.loading}> Create!</ Button>
         </Form>
         </div>
     );
