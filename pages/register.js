@@ -25,7 +25,7 @@ class RequestNew extends Component {
         course
       ).send({from: accounts[0]}).on('transactionHash', function(hash){
         console.log(hash); });
-
+        console.log(accounts[0]);
     } catch(err) {
       this.setState({errorMessage:err.message});
     }
