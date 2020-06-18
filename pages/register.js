@@ -23,7 +23,9 @@ class RequestNew extends Component {
         uid,
         name,
         course
-      ).send({from: accounts[0]});
+      ).send({from: accounts[0]}).on('transactionHash', function(hash){
+        console.log(hash); });
+
     } catch(err) {
       this.setState({errorMessage:err.message});
     }
