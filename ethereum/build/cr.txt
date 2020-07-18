@@ -1,0 +1,56 @@
+
+contract Certificate {
+    struct Dt {
+        string id ;
+        string sn;
+        string c;
+ 
+    }
+    
+    uint t;
+    address public mn;
+    mapping(string => Dt) cD ;  
+    
+    modifier restricted() {
+        require(msg.sender==mn);
+        _;
+    }
+    
+    function Certificate() public {
+        mn = msg.sender;
+    }
+    
+     function crD( string _id  , string _s , string _c) public restricted {
+        Data memory nD = Data({
+            id : _id,
+            sn : _s,
+            c : _c
+            });  
+        t++;
+        cD[_id] = nD;
+    
+    }
+    
+    function gD(string _id) public view returns (string , string , string) {
+        
+        Data storage data = cD[_id];
+        
+        return (
+        data.id,
+        data.sn,
+        data.c
+        ); 
+      }
+    function eD( string _id  , string _s , string _c) public restricted {
+        
+        Data storage data = cD[_id];
+        data.sn = _s
+        data.c= _c;
+       
+    }
+    
+     function tC() public view returns(uint){
+         return t;
+     }
+
+}
