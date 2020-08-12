@@ -1,4 +1,4 @@
-const { createServer }= require('http');
+const { createServer }= require('https');
 const next = require('next');
 
 const app = next({
@@ -12,7 +12,7 @@ app.prepare().then(() =>{
   createServer(handler).listen(3000, (err) => {
     if (err) throw err;
 
-    
+
     console.log('Ready on localhost:3000');
   });
 });
