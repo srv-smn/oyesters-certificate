@@ -15,15 +15,6 @@ class Demo extends Component {
        course:summary[2]
      };
  }
-  state = {
-   uid:'',
-	 name:'',
-	 course:'',
-	 loading : false,
-   errorMessage: '',
-   show:false
- };
-
 
   render(){
 
@@ -99,19 +90,6 @@ class Demo extends Component {
     return(
 
       <div className ="m2">
-      <h3>Show Certificate</h3>
-        <Form onSubmit = {this.onSubmit}>
-          <Form.Field>
-            <label>Certificate Id</label>
-            <Input
-              value = {this.state.uid}
-              onChange= {event => this.setState({uid: event.target.value})}
-              placeholder="enter UID"
-            />
-          </Form.Field>
-
-          <Button primary loading ={this.state.loading}> Search!</ Button>
-        </Form>
         {person}
         </div>
     );
